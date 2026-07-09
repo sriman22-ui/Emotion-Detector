@@ -1,6 +1,10 @@
+import os
+
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
+
+MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'emotion_model.h5')
 
 EMOTIONS = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
 COLORS = [
@@ -15,7 +19,7 @@ COLORS = [
 
 
 def load_assets():
-    model = load_model('emotion_model.h5')
+    model = load_model(MODEL_PATH)
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     return model, face_cascade
 

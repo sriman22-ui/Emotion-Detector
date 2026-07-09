@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import gradio as gr
 from inference import load_assets, annotate_frame
@@ -21,4 +23,6 @@ with gr.Blocks(title="Emotion Detector") as demo:
     webcam.stream(fn=process, inputs=webcam, outputs=output, stream_every=0.2)
 
 if __name__ == "__main__":
-    demo.launch()
+    # Render (and similar PaaS hosts) inject the port to bind via $PORT;
+    # falls back to Gradio's default 7860 for local runs.
+    demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
